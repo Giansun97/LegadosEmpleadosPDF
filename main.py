@@ -49,8 +49,16 @@ def unir_archivos_por_legajo(carpeta, archivo_salida):
             print(f"Uniendo archivos del legajo {numero_legajo}...")
             for archivo in archivos:
                 print(f" - {archivo}")
-            unir_pdf(archivos, f"{archivo_salida}_Legajo_{numero_legajo}.pdf")
-            print(f"Unión completa para el legajo {numero_legajo}.")
+                # Obtener la ruta del directorio del archivo main.py
+                directorio_actual = os.path.dirname(os.path.abspath(__file__))
+                # Crear la carpeta "output" si no existe
+                carpeta_output = os.path.join(directorio_actual, "output")
+                if not os.path.exists(carpeta_output):
+                    os.makedirs(carpeta_output)
+                # Ruta absoluta para el archivo de salida dentro de la carpeta "output"
+                ruta_salida = os.path.join(carpeta_output, f"{archivo_salida}_Legajo_{numero_legajo}.pdf")
+                print(f"Archivos a unir: {archivos}")
+                unir_pdf(archivos, ruta_salida)
         else:
             print(f"No hay suficientes archivos para el legajo {numero_legajo}")
 
